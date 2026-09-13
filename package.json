@@ -6,8 +6,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "dev": "npx serve .",
-    "start": "npx serve .",
-    "build": "echo 'Static production ready for Vercel.'"
+    "start": "npx serve ."
   },
   "keywords": [
     "cinematography",
