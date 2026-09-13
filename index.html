@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DG PRODUCTION | World-Class Cinematography, Editing & Color Grading</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="DG PRODUCTION is a premium creative film studio founded by Oliyad Diriba, specializing in high-end Cinematography, Video Editing, and DaVinci Resolve Color Grading.">
+  <meta name="keywords" content="DG PRODUCTION, Oliyad Diriba, Cinematography, Video Editing, Color Grading, Film Studio, Commercial Film, Music Videos, ARRI, RED, DaVinci Resolve">
+  <meta name="author" content="Oliyad Diriba">
+  <meta name="theme-color" content="#070709">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DG PRODUCTION | Crafting Cinematic Stories That Inspire">
+  <meta property="og:description" content="Award-winning cinematography, video editing, and master color grading studio by Oliyad Diriba.">
+  <meta property="og:image" content="assets/images/hero-cinema.jpg">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DG PRODUCTION | Cinematic Portfolio">
+  <meta name="twitter:description" content="Professional cinematography, video editing, and color grading services.">
+  <meta name="twitter:image" content="assets/images/hero-cinema.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+  <link rel="apple-touch-icon" href="assets/images/favicon.png">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "DG PRODUCTION",
+    "founder": {
+      "@type": "Person",
+      "name": "Oliyad Diriba",
+      "jobTitle": "Lead Cinematographer & Director"
+    },
+    "email": "olishe020@gmail.com",
+    "telephone": "+251928318444",
+    "description": "Premium creative studio specializing in Cinematography, Video Editing, and Color Grading.",
+    "priceRange": "$$$$"
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Film Grain Overlay -->
+  <div class="film-grain" aria-hidden="true"></div>
+
+  <!-- Custom Cinematic Mouse Cursor (Desktop) -->
+  <div class="custom-cursor" id="customCursor" aria-hidden="true"></div>
+  <div class="custom-cursor-follower" id="customCursorFollower" aria-hidden="true"></div>
+
+  <!-- ==========================================================================
+       NAVIGATION HEADER
+       ========================================================================== -->
+  <header class="site-header" role="banner">
+    <div class="container nav-container">
+      
+      <!-- Brand Logo -->
+      <a href="#hero" class="brand-logo" aria-label="DG PRODUCTION Home">
+        <div class="logo-mark-wrap">
+          <img src="assets/images/dg-emblem-gold.png" alt="DG PRODUCTION Official Emblem" class="brand-logo-img">
+        </div>
+        <div class="logo-text-wrap">
+          <span class="logo-title">DG PRODUCTION</span>
+          <span class="logo-subtitle">CINEMATOGRAPHY & LAB</span>
+        </div>
+      </a>
+
+      <!-- Live Studio Booking Status HUD (Rec Counter Removed) -->
+      <div class="header-hud" aria-label="Studio Live Status HUD">
+        <div class="live-status">
+          <div class="status-dot"></div>
+          <span id="headerStudioStatus">BOOKING AVAILABLE</span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="desktop-nav" role="navigation" aria-label="Main Navigation">
+        <ul class="nav-menu">
+          <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+          <li><a href="#grading-lab" class="nav-link">Grading Lab</a></li>
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#testimonials" class="nav-link">Reviews</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Action Button -->
+      <div class="header-cta-wrap">
+        <a href="#contact" class="btn btn-outline-gold header-cta-btn">Inquire Project</a>
+        
+        <!-- Mobile Menu Toggle Button -->
+        <button class="mobile-menu-btn" id="mobileMenuOpenBtn" aria-label="Open Mobile Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="mobile-drawer" id="mobileDrawer" role="dialog" aria-label="Mobile Navigation Menu">
+    <div>
+      <div class="mobile-drawer-header">
+        <a href="#hero" class="brand-logo" aria-label="DG PRODUCTION Home">
+          <div class="logo-mark-wrap">
+            <img src="assets/images/dg-emblem-gold.png" alt="DG PRODUCTION Official Emblem" class="brand-logo-img">
+          </div>
+          <div class="logo-text-wrap">
+            <span class="logo-title">DG PRODUCTION</span>
+            <span class="logo-subtitle">CINEMATOGRAPHY & LAB</span>
+          </div>
+        </a>
+        <button class="drawer-close-btn" id="mobileMenuCloseBtn" aria-label="Close menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <ul class="drawer-menu">
+        <li><a href="#hero" class="drawer-link">Home</a></li>
+        <li><a href="#portfolio" class="drawer-link">Portfolio Showcase</a></li>
+        <li><a href="#grading-lab" class="drawer-link">Color Grading Lab</a></li>
+        <li><a href="#services" class="drawer-link">Production Services</a></li>
+        <li><a href="#about" class="drawer-link">About Oliyad Diriba</a></li>
+        <li><a href="#testimonials" class="drawer-link">Client Reviews</a></li>
+        <li><a href="#contact" class="drawer-link">Contact & Booking</a></li>
+      </ul>
+    </div>
+    <div>
+      <a href="#contact" class="btn btn-primary" style="width: 100%;">Start Production</a>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       HERO SECTION
+       ========================================================================== -->
+  <section class="hero-section" id="hero">
+    
+    <!-- Anamorphic Letterbox Bars & Camera Crosshair HUD -->
+    <div class="letterbox-top" aria-hidden="true"></div>
+    <div class="letterbox-bottom" aria-hidden="true"></div>
+    <div class="camera-crosshairs" aria-hidden="true">
+      <div class="corner-bracket top-left"></div>
+      <div class="corner-bracket top-right"></div>
+      <div class="corner-bracket bottom-left"></div>
+      <div class="corner-bracket bottom-right"></div>
+    </div>
+
+    <!-- Background Cinema Atmosphere -->
+    <div class="hero-backdrop">
+      <img src="assets/images/hero-cinema.jpg" alt="DG PRODUCTION Cinema Camera Studio Set" class="hero-image">
+      <div class="hero-overlay-gradient"></div>
+    </div>
+
+    <div class="container hero-content">
+      
+      <!-- Camera Spec Badge -->
+      <div class="hero-camera-badge">
+        <span>ARRI / RED DIGITAL CINEMA</span>
+        <span class="divider">|</span>
+        <span>4K/8K CAPTURE</span>
+        <span class="divider">|</span>
+        <span>DAVINCI RESOLVE STUDIO</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="hero-headline">
+        Crafting Cinematic Stories
+        <span class="emphasis gold-gradient-text">That Inspire</span>
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="hero-subheadline">
+        Professional Cinematography, Video Editing & Master Color Grading by Oliyad Diriba. We turn visionary concepts into breathtaking visual masterpieces.
+      </p>
+
+      <!-- CTA Group -->
+      <div class="hero-cta-group">
+        <a href="#portfolio" class="btn btn-primary">
+          <!-- Play Reel Icon -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          View Portfolio
+        </a>
+        <a href="#contact" class="btn btn-secondary">
+          Contact Studio
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Live Studio Metric Bar -->
+      <div class="hero-stats-bar">
+        <div class="stat-item">
+          <div class="stat-number">100+</div>
+          <div class="stat-label">Projects Filmed</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">8K / 4K</div>
+          <div class="stat-label">Cinema Standards</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Color Precision</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">Global</div>
+          <div class="stat-label">Directorial Reach</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       PORTFOLIO / SHOWREEL SECTION
+       ========================================================================== -->
+  <section class="portfolio-section" id="portfolio">
+    <div class="container">
+      
+      <div class="section-header">
+        <span class="section-tagline">Selected Works</span>
+        <h2 class="section-title">Cinematic <span class="gold-gradient-text">Portfolio</span></h2>
+        <p class="section-description">
+          Explore a curated selection of commercial films, music videos, narrative visuals, and dynamic shorts. Click any card to launch the high-definition theatre player.
+        </p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="filter-tabs-wrapper" role="tablist" aria-label="Portfolio Filters">
+        <button class="filter-tab active" data-filter="all" role="tab">All Works</button>
+        <button class="filter-tab" data-filter="commercial" role="tab">Commercial</button>
+        <button class="filter-tab" data-filter="music-videos" role="tab">Music Videos</button>
+        <button class="filter-tab" data-filter="creative" role="tab">Creative & Shorts</button>
+        <button class="filter-tab" data-filter="events" role="tab">Events & Luxury</button>
+      </div>
+
+      <!-- Video Grid (Managed via CMS Store) -->
+      <div class="portfolio-grid" id="portfolioGrid">
+        
+        <!-- Video 1: Commercial Cinema Set & Gimbal Rigging (-ECsHpfm-yM) -->
+        <article class="video-card span-3 aspect-vertical lightbox-trigger" 
+                 data-category="commercial creative" 
+                 data-youtube-id="-ECsHpfm-yM" 
+                 data-aspect="vertical"
+                 tabindex="0"
+                 aria-label="Play Commercial Cinema Set & Gimbal Rigging Video">
+          <div class="video-card-thumb-wrap">
+            <img src="assets/images/portfolio-short-1.jpg" 
+                 alt="Commercial Cinema Set & Gimbal Rigging by Oliyad Diriba" 
+                 class="video-card-thumb" 
+                 onerror="this.src='https://img.youtube.com/vi/-ECsHpfm-yM/maxresdefault.jpg'">
+            <div class="video-badge-top">
+              <span class="card-tag tag-category">Commercial</span>
+              <span class="card-tag tag-aspect">9:16 Short</span>
+            </div>
+            <span class="video-duration">00:45</span>
+            <div class="play-btn-overlay">
+              <div class="play-circle">
+                <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              </div>
+            </div>
+          </div>
+          <div class="video-card-body">
+            <h3 class="video-card-title">Commercial Cinema Set</h3>
+            <p class="video-card-desc">
+              Behind-the-scenes cinematography on a commercial retail shoot with multi-angle softbox diffusion and fluid handheld gimbal maneuvering.
+            </p>
+            <div class="video-card-meta">
+              <span>DIRECTED & SHOT BY OLIYAD</span>
+              <span class="meta-gear">GIMBAL • PRIME OPTICS</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Video 2: Luxury Wedding & Ceremonial Visuals (2In8XBHwwwA) -->
+        <article class="video-card span-3 aspect-vertical lightbox-trigger" 
+                 data-category="events creative" 
+                 data-youtube-id="2In8XBHwwwA" 
+                 data-aspect="vertical"
+                 tabindex="0"
+                 aria-label="Play Luxury Wedding & Ceremonial Visuals Video">
+          <div class="video-card-thumb-wrap">
+            <img src="assets/images/portfolio-short-2.jpg" 
+                 alt="Luxury Wedding & Ceremonial Visuals by Oliyad Diriba" 
+                 class="video-card-thumb"
+                 onerror="this.src='https://img.youtube.com/vi/2In8XBHwwwA/maxresdefault.jpg'">
+            <div class="video-badge-top">
+              <span class="card-tag tag-category">Events & Luxury</span>
+              <span class="card-tag tag-aspect">9:16 Short</span>
+            </div>
+            <span class="video-duration">00:52</span>
+            <div class="play-btn-overlay">
+              <div class="play-circle">
+                <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              </div>
+            </div>
+          </div>
+          <div class="video-card-body">
+            <h3 class="video-card-title">Luxury Wedding Ceremony</h3>
+            <p class="video-card-desc">
+              High-end ceremonial wedding cinematography captured with a continuous smooth gimbal glide through an illuminated floral candlelit aisle.
+            </p>
+            <div class="video-card-meta">
+              <span>CEREMONY CINEMA</span>
+              <span class="meta-gear">TRACKING • CHANDELIER</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Video 3: Multi-Cam Corporate & Broadcast Interview (KZ65qIyzCEo) -->
+        <article class="video-card span-3 aspect-vertical lightbox-trigger" 
+                 data-category="commercial events" 
+                 data-youtube-id="KZ65qIyzCEo" 
+                 data-aspect="vertical"
+                 tabindex="0"
+                 aria-label="Play Multi-Cam Corporate & Broadcast Interview Video">
+          <div class="video-card-thumb-wrap">
+            <img src="assets/images/portfolio-short-3.jpg" 
+                 alt="Multi-Cam Corporate & Broadcast Interview - The iCapital" 
+                 class="video-card-thumb"
+                 onerror="this.src='https://img.youtube.com/vi/KZ65qIyzCEo/maxresdefault.jpg'">
+            <div class="video-badge-top">
+              <span class="card-tag tag-category">Broadcast / Corp</span>
+              <span class="card-tag tag-aspect">9:16 Short</span>
+            </div>
+            <span class="video-duration">00:38</span>
+            <div class="play-btn-overlay">
+              <div class="play-circle">
+                <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              </div>
+            </div>
+          </div>
+          <div class="video-card-body">
+            <h3 class="video-card-title">Broadcast & TV Interview</h3>
+            <p class="video-card-desc">
+              Executive multi-camera studio production for 'The iCapital', featuring multi-angle Canon EOS R cinema rigs and pristine audio capture.
+            </p>
+            <div class="video-card-meta">
+              <span>THE iCAPITAL PRODUCTION</span>
+              <span class="meta-gear">CANON EOS R • MULTI-CAM</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Video 4: Studio Dialogue & Narrative Lighting (NvFqm8RtGPc) -->
+        <article class="video-card span-3 aspect-vertical lightbox-trigger" 
+                 data-category="creative music-videos" 
+                 data-youtube-id="NvFqm8RtGPc" 
+                 data-aspect="vertical"
+                 tabindex="0"
+                 aria-label="Play Studio Dialogue & Narrative Lighting Video">
+          <div class="video-card-thumb-wrap">
+            <img src="assets/images/portfolio-short-4.jpg" 
+                 alt="Studio Dialogue & Narrative Lighting by Oliyad Diriba" 
+                 class="video-card-thumb"
+                 onerror="this.src='https://img.youtube.com/vi/NvFqm8RtGPc/maxresdefault.jpg'">
+            <div class="video-badge-top">
+              <span class="card-tag tag-category">Creative & Shorts</span>
+              <span class="card-tag tag-aspect">9:16 Short</span>
+            </div>
+            <span class="video-duration">00:41</span>
+            <div class="play-btn-overlay">
+              <div class="play-circle">
+                <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              </div>
+            </div>
+          </div>
+          <div class="video-card-body">
+            <h3 class="video-card-title">Studio Dialogue & Lighting</h3>
+            <p class="video-card-desc">
+              Intimate narrative lighting setup with large lantern dome diffusion, rim accents, and prime cinema lens depth for evocative storytelling.
+            </p>
+            <div class="video-card-meta">
+              <span>STUDIO CINEMA</span>
+              <span class="meta-gear">DOME DIFFUSION • 4K</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       COLOR GRADING LAB (INTERACTIVE BEFORE / AFTER SLIDER)
+       ========================================================================== -->
+  <section class="grading-lab-section" id="grading-lab">
+    <div class="container">
+      
+      <div class="section-header">
+        <span class="section-tagline">The Alchemy of Color</span>
+        <h2 class="section-title">Interactive <span class="gold-gradient-text">Grading Lab</span></h2>
+        <p class="section-description">
+          Drag the interactive split handle to compare flat camera sensor LOG footage against DG PRODUCTION's bespoke master grade.
+        </p>
+      </div>
+
+      <!-- Interactive Dual Wipe Comparison Component -->
+      <div class="comparison-wrapper">
+        <div class="comparison-viewport" id="gradingViewport">
+          
+          <!-- Base: Final Graded Master Image -->
+          <img src="assets/images/color-grading-master.jpg" 
+               alt="DG PRODUCTION Master Color Grade" 
+               class="comparison-img-graded">
+
+          <!-- Overlay: Raw Flat Log Profile -->
+          <div class="comparison-raw-overlay" id="gradingRawOverlay">
+            <img src="assets/images/color-grading-master.jpg" 
+                 alt="Camera Raw Log C3 Profile" 
+                 class="comparison-img-raw" 
+                 id="gradingRawImg">
+          </div>
+
+          <!-- Interactive Center Handle -->
+          <div class="slider-handle" id="sliderHandle">
+            <svg viewBox="0 0 24 24">
+              <path d="M8 5v14l-5-7 5-7zm8 14V5l5 7-5 7z"/>
+            </svg>
+          </div>
+
+          <!-- Floating HUD Labels -->
+          <div class="comparison-label label-raw">RAW SENSOR LOG (ARRI/RED)</div>
+          <div class="comparison-label label-graded">DG MASTER GRADE (ACES)</div>
+
+        </div>
+
+        <!-- Technical Grading HUD Bar -->
+        <div class="grading-specs-bar">
+          <div class="spec-badge">
+            <span>Color Space:</span>
+            <span class="value">ACEScc / Rec.709 D65</span>
+          </div>
+          <div class="spec-badge">
+            <span>Film Stock:</span>
+            <span class="value">Kodak Vision3 5219 Print Emulation</span>
+          </div>
+          <div class="spec-badge">
+            <span>Pipeline:</span>
+            <span class="value">32-bit Floating Point DaVinci YRGB</span>
+          </div>
+          <div class="spec-badge">
+            <span>Display Target:</span>
+            <span class="value">DCI-P3 / HDR10 1000 nits</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SERVICES SECTION
+       ========================================================================== -->
+  <section class="services-section" id="services">
+    <div class="container">
+      
+      <div class="section-header">
+        <span class="section-tagline">Studio Capabilities</span>
+        <h2 class="section-title">Specialized <span class="gold-gradient-text">Craftsmanship</span></h2>
+        <p class="section-description">
+          End-to-end cinematic production tailored for visionary artists, premier commercial brands, and unforgettable events.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        
+        <!-- Service 1: Cinematography -->
+        <div class="service-card">
+          <div class="service-number">01 // PRODUCTION</div>
+          <div class="service-icon-wrap">
+            <!-- Camera / Lens Icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+              <circle cx="12" cy="13" r="4"></circle>
+            </svg>
+          </div>
+          <h3 class="service-title">Cinematography</h3>
+          <p class="service-desc">
+            Visual storytelling captured on industry-standard large format cinema systems with anamorphic primes, custom lighting rigs, and precision camera movement.
+          </p>
+          <ul class="service-features-list">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              ARRI Alexa & RED Digital Cinema packages
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Anamorphic & Vintage spherical optics
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Steadicam, Gimbal & Drone aerial operations
+            </li>
+          </ul>
+          <div class="service-gear-tags">
+            <span class="gear-pill">ARRI Mini LF</span>
+            <span class="gear-pill">RED V-Raptor</span>
+            <span class="gear-pill">Cooke / Atlas</span>
+          </div>
+        </div>
+
+        <!-- Service 2: Video Editing -->
+        <div class="service-card">
+          <div class="service-number">02 // POST-PRODUCTION</div>
+          <div class="service-icon-wrap">
+            <!-- Film Reel / Scissors Icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="6" cy="6" r="3"></circle>
+              <circle cx="6" cy="18" r="3"></circle>
+              <line x1="20" y1="4" x2="8.12" y2="15.88"></line>
+              <line x1="14.47" y1="14.48" x2="20" y2="20"></line>
+              <line x1="8.12" y1="8.12" x2="12" y2="12"></line>
+            </svg>
+          </div>
+          <h3 class="service-title">Video Editing</h3>
+          <p class="service-desc">
+            Pacing that grips emotion. From high-energy music videos and commercial cuts to deliberate narrative documentaries, we assemble stories with surgical precision.
+          </p>
+          <ul class="service-features-list">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Narrative rhythm & emotional montage pacing
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Bespoke cinematic sound design & foley mixing
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Multi-format delivery (16:9 Cinema, 9:16 Shorts)
+            </li>
+          </ul>
+          <div class="service-gear-tags">
+            <span class="gear-pill">Premiere Pro</span>
+            <span class="gear-pill">DaVinci Cut</span>
+            <span class="gear-pill">After Effects</span>
+          </div>
+        </div>
+
+        <!-- Service 3: Color Grading -->
+        <div class="service-card">
+          <div class="service-number">03 // COLOR SCIENCE</div>
+          <div class="service-icon-wrap">
+            <!-- Sliders / Color Wheel Icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" y1="21" x2="4" y2="14"></line>
+              <line x1="4" y1="10" x2="4" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12" y2="3"></line>
+              <line x1="20" y1="21" x2="20" y2="16"></line>
+              <line x1="20" y1="12" x2="20" y2="3"></line>
+              <line x1="1" y1="14" x2="7" y2="14"></line>
+              <line x1="9" y1="8" x2="15" y2="8"></line>
+              <line x1="17" y1="16" x2="23" y2="16"></line>
+            </svg>
+          </div>
+          <h3 class="service-title">Color Grading</h3>
+          <p class="service-desc">
+            The studio's signature discipline. We sculpt light, contrast, and color tonality using calibrated reference monitors and ACES color management.
+          </p>
+          <ul class="service-features-list">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Authentic 35mm film grain & print emulation
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Subtle skin tone isolation & highlight roll-off
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              DCI-P3 theatrical and HDR10 broadcast mastering
+            </li>
+          </ul>
+          <div class="service-gear-tags">
+            <span class="gear-pill">DaVinci Resolve 19</span>
+            <span class="gear-pill">ACES Workflow</span>
+            <span class="gear-pill">FilmConvert Pro</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       ABOUT SECTION
+       ========================================================================== -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="about-grid">
+        
+        <!-- Founder Portrait Column -->
+        <div class="about-image-column">
+          <div class="founder-frame">
+            <img src="assets/images/founder-oliyad.jpg" alt="Oliyad Diriba, Founder of DG PRODUCTION" class="founder-portrait">
+            <div class="founder-badge-card">
+              <img src="assets/images/dg-emblem-gold.png" alt="DG Signature Mark" class="founder-badge-emblem">
+              <div>
+                <div class="founder-name">Oliyad Diriba</div>
+                <div class="founder-role">Founder • Director of Photography • Colorist</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Text Bio & Studio Philosophy -->
+        <div class="about-text-column">
+          <span class="section-tagline">Creative Leadership</span>
+          <h2 class="section-title">The Eye Behind <span class="gold-gradient-text">The Lens</span></h2>
+          
+          <p class="about-lead">
+            Founded by <span class="gold-highlight">Oliyad Diriba</span>, DG PRODUCTION was built on an uncompromising obsession: to bridge international Hollywood-grade aesthetics with deeply resonant storytelling.
+          </p>
+
+          <p class="about-paragraph">
+            With years of specialized experience in cinematography and color science, Oliyad approaches each frame not merely as video footage, but as a carefully lit canvas. Every beam of light, every shadow curve, and every cut is calibrated to evoke undeniable emotional impact.
+          </p>
+
+          <div class="about-philosophy-box">
+            <p class="philosophy-quote">
+              "Cinematography is the quiet language of emotion. When the lighting, pacing, and color grade harmonize, an audience stops watching a screen and starts living the moment."
+            </p>
+          </div>
+
+          <div class="studio-specs-list">
+            <div class="spec-item">
+              <div class="spec-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              </div>
+              <div class="spec-info">
+                <h4>Rapid Turnaround</h4>
+                <p>Streamlined post-production workflow</p>
+              </div>
+            </div>
+
+            <div class="spec-item">
+              <div class="spec-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+              </div>
+              <div class="spec-info">
+                <h4>Worldwide Deployment</h4>
+                <p>Available for domestic & international shoots</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <a href="#contact" class="btn btn-primary">Work With Oliyad</a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       TESTIMONIALS SECTION
+       ========================================================================== -->
+  <section class="testimonials-section" id="testimonials">
+    <div class="container">
+      
+      <div class="section-header">
+        <span class="section-tagline">Client Trust</span>
+        <h2 class="section-title">Industry <span class="gold-gradient-text">Endorsements</span></h2>
+        <p class="section-description">
+          Read what directors, recording artists, and commercial brand executives say about working with DG PRODUCTION.
+        </p>
+      </div>
+
+      <!-- Testimonials Grid (Managed via CMS Store) -->
+      <div class="testimonials-grid" id="testimonialsGrid">
+        
+        <!-- Review 1 -->
+        <div class="testimonial-card">
+          <div class="stars-rating">
+            ★★★★★
+          </div>
+          <p class="testimonial-quote">
+            "Oliyad and the DG PRODUCTION team took our music video to a level we didn't think was possible. The lighting setup and the final color grade made it look like a feature film. Absolutely world-class."
+          </p>
+          <div class="testimonial-client">
+            <div class="client-avatar">MK</div>
+            <div>
+              <div class="client-name">Marcus K.</div>
+              <div class="client-role">Music Executive & Label Director</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="testimonial-card">
+          <div class="stars-rating">
+            ★★★★★
+          </div>
+          <p class="testimonial-quote">
+            "Their mastery of DaVinci Resolve color grading completely transformed our commercial campaign. The client was blown away during the color review session. DG PRODUCTION is our first call on every shoot."
+          </p>
+          <div class="testimonial-client">
+            <div class="client-avatar">SA</div>
+            <div>
+              <div class="client-name">Sarah Al-Mansoor</div>
+              <div class="client-role">Creative Agency Head, RedDot Studio</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="testimonial-card">
+          <div class="stars-rating">
+            ★★★★★
+          </div>
+          <p class="testimonial-quote">
+            "Rarely do you meet a cinematographer who understands both the raw technical intricacies of camera sensors and the emotional core of editing. Fast, professional, and endlessly creative."
+          </p>
+          <div class="testimonial-client">
+            <div class="client-avatar">TD</div>
+            <div>
+              <div class="client-name">Tewodros D.</div>
+              <div class="client-role">Film Director & Producer</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       CONTACT & BOOKING SECTION
+       ========================================================================== -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        
+        <!-- Contact Information Column -->
+        <div class="contact-info-col">
+          <span class="section-tagline">Initiate Dialogue</span>
+          <h2 class="contact-intro-title">Let's Create Something <span class="gold-gradient-text">Iconic</span></h2>
+          <p class="contact-intro-desc">
+            Have a commercial campaign, music video, or narrative film in development? Reach out directly or fill out the production brief. We respond within 24 hours.
+          </p>
+
+          <div class="direct-channels-list">
+            
+            <!-- Direct Phone / WhatsApp -->
+            <a href="tel:+251928318444" class="channel-card" aria-label="Call or WhatsApp Oliyad Diriba">
+              <div class="channel-icon">
+                <!-- Phone Icon -->
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+              </div>
+              <div class="channel-meta">
+                <h4>Call / WhatsApp Direct</h4>
+                <p>+251 928 318 444 &bull; +251 922 462 961</p>
+              </div>
+              <div class="channel-action-arrow">→</div>
+            </a>
+
+            <!-- Direct Email -->
+            <a href="mailto:olishe020@gmail.com" class="channel-card" aria-label="Send Email to Oliyad Diriba">
+              <div class="channel-icon">
+                <!-- Mail Icon -->
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </div>
+              <div class="channel-meta">
+                <h4>Official Studio Email</h4>
+                <p>olishe020@gmail.com</p>
+              </div>
+              <div class="channel-action-arrow">→</div>
+            </a>
+
+          </div>
+
+          <!-- Studio Location Box -->
+          <div class="studio-location-box">
+            <div class="location-icon">
+              <!-- Pin Icon -->
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <div class="location-text">
+              <h5>Studio Headquarters</h5>
+              <p>Addis Ababa, Ethiopia • Available Worldwide for Commissioned Projects</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Interactive Project Inquiry Form -->
+        <div class="contact-form-container">
+          <form id="bookingContactForm">
+            
+            <div class="form-group-grid">
+              <div class="form-field">
+                <label for="clientName">Your Name / Company *</label>
+                <input type="text" id="clientName" class="form-control" placeholder="e.g. Elena Vance / Redbull" required>
+              </div>
+              <div class="form-field">
+                <label for="clientEmail">Email Address *</label>
+                <input type="email" id="clientEmail" class="form-control" placeholder="name@company.com" required>
+              </div>
+            </div>
+
+            <div class="form-group-grid">
+              <div class="form-field">
+                <label for="clientPhone">Phone / WhatsApp</label>
+                <input type="tel" id="clientPhone" class="form-control" placeholder="+251 ...">
+              </div>
+              <div class="form-field">
+                <label for="projectBudget">Estimated Budget Range</label>
+                <select id="projectBudget" class="form-control">
+                  <option value="">Select Range</option>
+                  <option value="Under $2,000">Under $2,000</option>
+                  <option value="$2,000 - $5,000">$2,000 – $5,000</option>
+                  <option value="$5,000 - $15,000">$5,000 – $15,000</option>
+                  <option value="$15,000+">$15,000+ (High-End Production)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Service Checkboxes -->
+            <div class="form-field">
+              <label>Services Needed</label>
+              <div class="service-chips-wrapper">
+                <label class="chip-label">
+                  <input type="checkbox" name="services" value="Cinematography" checked>
+                  <span class="chip-pill">Cinematography</span>
+                </label>
+                <label class="chip-label">
+                  <input type="checkbox" name="services" value="Video Editing" checked>
+                  <span class="chip-pill">Video Editing</span>
+                </label>
+                <label class="chip-label">
+                  <input type="checkbox" name="services" value="Color Grading" checked>
+                  <span class="chip-pill">Color Grading</span>
+                </label>
+                <label class="chip-label">
+                  <input type="checkbox" name="services" value="Full Production">
+                  <span class="chip-pill">Full Production</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Project Details -->
+            <div class="form-field">
+              <label for="projectMessage">Project Brief & Vision *</label>
+              <textarea id="projectMessage" class="form-control" rows="4" placeholder="Describe the concept, target timeline, locations, and any references..." required></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary form-submit-btn">
+              Submit Production Inquiry
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+
+            <!-- Feedback Notice -->
+            <div class="form-feedback" id="formFeedback"></div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      
+      <div class="footer-top">
+        <a href="#hero" class="brand-logo footer-brand-logo" aria-label="DG PRODUCTION Home">
+          <div class="logo-mark-wrap">
+            <img src="assets/images/dg-emblem-gold.png" alt="DG PRODUCTION Official Logo" class="brand-logo-img">
+          </div>
+          <div class="logo-text-wrap">
+            <span class="logo-title">DG PRODUCTION</span>
+            <span class="logo-subtitle">PICTURES & STUDIOS • OLIYAD DIRIBA</span>
+          </div>
+        </a>
+
+        <!-- Social Media Channels -->
+        <div class="footer-social-links">
+          
+          <!-- YouTube -->
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="YouTube Channel">
+            <svg viewBox="0 0 24 24">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </a>
+
+          <!-- Instagram -->
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram Profile">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+          </a>
+
+          <!-- Vimeo -->
+          <a href="https://vimeo.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Vimeo Portfolio">
+            <svg viewBox="0 0 24 24">
+              <path d="M23.977 6.416c-.105 2.338-1.739 5.543-4.894 9.609-3.268 4.247-6.026 6.37-8.29 6.37-1.409 0-2.578-1.294-3.553-3.881L5.322 11.4C4.603 8.816 3.834 7.525 3.01 7.525c-.179 0-.806.378-1.881 1.131L0 7.234c1.196-1.05 2.376-2.102 3.535-3.153 1.602-1.393 2.793-2.128 3.572-2.203 1.839-.181 2.973.992 3.402 3.522.46 2.709.78 4.404.958 5.084.542 2.449 1.135 3.674 1.782 3.674.502 0 1.256-.798 2.265-2.395 1.009-1.594 1.545-2.793 1.611-3.593.136-1.352-.39-2.029-1.579-2.029-.569 0-1.156.129-1.76.387 1.171-3.819 3.411-5.667 6.721-5.544 2.45.093 3.606 1.666 3.47 4.729z"/>
+            </svg>
+          </a>
+
+          <!-- LinkedIn -->
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn Profile">
+            <svg viewBox="0 0 24 24">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+          </a>
+
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; <span id="copyrightYear">2026</span> DG PRODUCTION. All rights reserved. Directed by Oliyad Diriba.
+        </div>
+        <div>
+          <span>Addis Ababa, Ethiopia</span> • <span>Worldwide Commissions</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <a href="admin.html" class="admin-portal-link" style="color: var(--text-muted); font-size: 0.8rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; transition: color 0.2s;" onmouseover="this.style.color='var(--gold-pure)'" onmouseout="this.style.color='var(--text-muted)'">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            Studio Admin
+          </a>
+          <button class="back-to-top-btn" id="backToTopBtn" aria-label="Back to top">
+            Back to Top
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="19" x2="12" y2="5"></line>
+              <polyline points="5 12 12 5 19 12"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       INTERACTIVE VIDEO LIGHTBOX MODAL
+       ========================================================================== -->
+  <div class="video-modal-backdrop" id="videoModal" role="dialog" aria-modal="true" aria-label="Video Showcase Theatre">
+    <div class="video-modal-container aspect-16-9" id="videoModalContainer">
+      <button class="modal-close-btn" id="videoModalCloseBtn" aria-label="Close Video Player">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div class="modal-iframe-wrap" id="modalIframeWrap">
+        <!-- YouTube iframe injected dynamically by main.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Engine & CMS Store -->
+  <script src="js/store.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

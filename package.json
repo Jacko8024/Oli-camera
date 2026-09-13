@@ -1,0 +1,21 @@
+{
+  "name": "dg-production-studio",
+  "version": "1.0.0",
+  "description": "DG PRODUCTION — Premium Cinematography, Video Editing, DaVinci Resolve Color Grading Studio & CMS",
+  "author": "Oliyad Diriba",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "npx serve .",
+    "start": "npx serve .",
+    "build": "echo 'Static production ready for Vercel.'"
+  },
+  "keywords": [
+    "cinematography",
+    "film-production",
+    "color-grading",
+    "davinci-resolve",
+    "video-editor",
+    "cms",
+    "admin-panel"
+  ]
+}
