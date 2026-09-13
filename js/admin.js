@@ -77,6 +77,8 @@ function initAdminAuth() {
   if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      const emailInput = document.getElementById('adminEmailInput');
+      const enteredEmail = emailInput ? emailInput.value.trim() : '';
       const enteredPw = pwInput ? pwInput.value.trim() : '';
 
       if (!window.DGStore) {
@@ -84,12 +86,12 @@ function initAdminAuth() {
         return;
       }
 
-      const result = window.DGStore.login(enteredPw);
+      const result = window.DGStore.login(enteredEmail, enteredPw);
       if (result.success) {
         overlay.classList.add('hidden');
         showAlert('', false);
         loginForm.reset();
-        showToast('Authenticated successfully. Welcome back!', 'success');
+        showToast('Authenticated successfully. Welcome back, Oliyad!', 'success');
         refreshAllViews();
       } else {
         const card = document.querySelector('.login-card');
@@ -97,7 +99,7 @@ function initAdminAuth() {
           card.classList.add('shake');
           setTimeout(() => card.classList.remove('shake'), 450);
         }
-        showAlert(result.error || 'Invalid password.', true);
+        showAlert(result.error || 'Invalid credentials.', true);
         if (pwInput) pwInput.select();
       }
     });
@@ -863,25 +865,34 @@ function initSettingsManager() {
     });
   }
 
-  // Change Password Form
+  // Change Credentials Form (Email & Password)
   if (pwForm && window.DGStore) {
+    const settings = window.DGStore.getSettings();
+    const adminEmailInput = document.getElementById('settingAdminEmail');
+    if (adminEmailInput && settings) {
+      adminEmailInput.value = settings.adminEmail || 'olishe020@gmail.com';
+    }
+
     pwForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      const newEmail = document.getElementById('settingAdminEmail').value.trim();
       const currentPw = document.getElementById('currentPasswordInput').value;
       const newPw = document.getElementById('newPasswordInput').value;
       const confirmPw = document.getElementById('confirmPasswordInput').value;
 
-      if (newPw !== confirmPw) {
+      if (newPw && newPw !== confirmPw) {
         alert('New passwords do not match. Please verify.');
         return;
       }
 
-      const res = window.DGStore.changePassword(currentPw, newPw);
+      const res = window.DGStore.updateCredentials(currentPw, newEmail, newPw || null);
       if (res.success) {
-        pwForm.reset();
-        showToast('Admin password updated successfully!', 'success');
+        document.getElementById('currentPasswordInput').value = '';
+        document.getElementById('newPasswordInput').value = '';
+        document.getElementById('confirmPasswordInput').value = '';
+        showToast('Admin credentials updated successfully!', 'success');
       } else {
-        alert(res.error || 'Failed to update password.');
+        alert(res.error || 'Failed to update credentials.');
       }
     });
   }

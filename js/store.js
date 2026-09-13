@@ -20,6 +20,7 @@
       phoneSecondary: '+251 922 462 961',
       email: 'olishe020@gmail.com',
       location: 'Addis Ababa, Ethiopia • Worldwide Commissions',
+      adminEmail: 'olishe020@gmail.com',
       adminPassword: 'admin123' // default initial password
     },
     projects: [
@@ -173,16 +174,21 @@
       }
     }
 
-    login(password, rememberMe = true) {
+    login(email, password, rememberMe = true) {
+      const currentEmail = (this.data.settings.adminEmail || 'olishe020@gmail.com').trim().toLowerCase();
       const currentPw = this.data.settings.adminPassword || 'admin123';
-      if (password === currentPw) {
+      
+      const inputEmail = (email || '').trim().toLowerCase();
+      const inputPw = password || '';
+
+      if (inputEmail === currentEmail && inputPw === currentPw) {
         if (rememberMe) {
           localStorage.setItem(SESSION_KEY, 'true');
         }
         sessionStorage.setItem(SESSION_KEY, 'true');
         return { success: true };
       }
-      return { success: false, error: 'Invalid password. Please try again.' };
+      return { success: false, error: 'Invalid email address or password. Please try again.' };
     }
 
     logout() {
@@ -192,15 +198,20 @@
       } catch (e) {}
     }
 
-    changePassword(currentPw, newPw) {
+    updateCredentials(currentPw, newEmail, newPw) {
       const actualPw = this.data.settings.adminPassword || 'admin123';
       if (currentPw !== actualPw) {
         return { success: false, error: 'Current password does not match.' };
       }
-      if (!newPw || newPw.length < 4) {
-        return { success: false, error: 'New password must be at least 4 characters long.' };
+      if (newEmail && newEmail.includes('@')) {
+        this.data.settings.adminEmail = newEmail.trim().toLowerCase();
       }
-      this.data.settings.adminPassword = newPw;
+      if (newPw) {
+        if (newPw.length < 4) {
+          return { success: false, error: 'New password must be at least 4 characters long.' };
+        }
+        this.data.settings.adminPassword = newPw;
+      }
       this.saveToStorage(this.data);
       return { success: true };
     }
