@@ -18,11 +18,10 @@ Welcome to the official repository for **DG PRODUCTION**, a world-class cinemato
 
 ---
 
-## Admin Credentials
+## Admin Access
 
-- **Admin URL**: `http://localhost/oli%20camera/admin.html` or `https://your-site.vercel.app/admin`
-- **Default Access Key**: `admin123`
-- *Note: You can change the admin key at any time under the **Studio Settings** tab in the Admin Panel.*
+- **Admin URL**: `https://<your-project>.vercel.app/admin` (or `admin.html` locally)
+- Protected by secure Email and Password authentication. Credentials can be managed directly under **Studio Settings** in the Admin Panel.
 
 ---
 
