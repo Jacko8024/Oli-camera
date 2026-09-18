@@ -21,8 +21,61 @@
       email: 'olishe020@gmail.com',
       location: 'Addis Ababa, Ethiopia • Worldwide Commissions',
       adminEmail: 'olishe020@gmail.com',
-      adminPassword: 'admin123' // default initial password
+      adminPassword: 'admin123', // default initial password
+      servicesTagline: 'Studio Capabilities',
+      servicesTitle: 'Specialized Craftsmanship',
+      servicesSubtitle: 'End-to-end cinematic production tailored for visionary artists, premier commercial brands, and unforgettable events.'
     },
+    services: [
+      {
+        id: 'serv-1',
+        number: '01 // PRODUCTION',
+        title: 'Cinematography',
+        icon: 'camera',
+        description: 'Visual storytelling captured on industry-standard large format cinema systems with anamorphic primes, custom lighting rigs, and precision camera movement.',
+        features: [
+          'ARRI Alexa & RED Digital Cinema packages',
+          'Anamorphic & Vintage spherical optics',
+          'Steadicam, Gimbal & Drone aerial operations'
+        ],
+        gear: ['ARRI Mini LF', 'RED V-Raptor', 'Cooke / Atlas'],
+        active: true,
+        order: 1,
+        createdAt: '2026-08-01T10:00:00.000Z'
+      },
+      {
+        id: 'serv-2',
+        number: '02 // POST-PRODUCTION',
+        title: 'Video Editing',
+        icon: 'film',
+        description: 'Pacing that grips emotion. From high-energy music videos and commercial cuts to deliberate narrative documentaries, we assemble stories with surgical precision.',
+        features: [
+          'Narrative rhythm & emotional montage pacing',
+          'Bespoke cinematic sound design & foley mixing',
+          'Multi-format delivery (16:9 Cinema, 9:16 Shorts)'
+        ],
+        gear: ['Premiere Pro', 'DaVinci Cut', 'After Effects'],
+        active: true,
+        order: 2,
+        createdAt: '2026-08-01T10:00:00.000Z'
+      },
+      {
+        id: 'serv-3',
+        number: '03 // COLOR SCIENCE',
+        title: 'Color Grading',
+        icon: 'sliders',
+        description: "The studio's signature discipline. We sculpt light, contrast, and color tonality using calibrated reference monitors and ACES color management.",
+        features: [
+          'Authentic 35mm film grain & print emulation',
+          'Subtle skin tone isolation & highlight roll-off',
+          'DCI-P3 theatrical and HDR10 broadcast mastering'
+        ],
+        gear: ['DaVinci Resolve 19', 'ACES Workflow', 'FilmConvert Pro'],
+        active: true,
+        order: 3,
+        createdAt: '2026-08-01T10:00:00.000Z'
+      }
+    ],
     projects: [
       {
         id: 'proj-1',
@@ -140,6 +193,7 @@
         const parsed = JSON.parse(raw);
         // Guarantee schemas exist
         parsed.settings = Object.assign({}, DEFAULT_DATA.settings, parsed.settings || {});
+        parsed.services = Array.isArray(parsed.services) ? parsed.services : DEFAULT_DATA.services;
         parsed.projects = Array.isArray(parsed.projects) ? parsed.projects : DEFAULT_DATA.projects;
         parsed.clients = Array.isArray(parsed.clients) ? parsed.clients : DEFAULT_DATA.clients;
         parsed.leads = Array.isArray(parsed.leads) ? parsed.leads : DEFAULT_DATA.leads;
@@ -342,6 +396,56 @@
       return true;
     }
 
+    /* ---------------- SERVICES ---------------- */
+    getServices() {
+      return [...(this.data.services || [])].sort((a, b) => (a.order || 0) - (b.order || 0));
+    }
+
+    getServiceById(id) {
+      return (this.data.services || []).find((s) => s.id === id) || null;
+    }
+
+    saveService(service) {
+      if (!Array.isArray(this.data.services)) {
+        this.data.services = [];
+      }
+      if (!service.id) {
+        service.id = 'serv-' + Date.now();
+        service.createdAt = new Date().toISOString();
+        if (!service.order) {
+          service.order = this.data.services.length + 1;
+        }
+        this.data.services.push(service);
+      } else {
+        const index = this.data.services.findIndex((s) => s.id === service.id);
+        if (index >= 0) {
+          this.data.services[index] = Object.assign({}, this.data.services[index], service, {
+            updatedAt: new Date().toISOString()
+          });
+        } else {
+          this.data.services.push(service);
+        }
+      }
+      this.saveToStorage(this.data);
+      return service;
+    }
+
+    deleteService(id) {
+      if (!Array.isArray(this.data.services)) return false;
+      this.data.services = this.data.services.filter((s) => s.id !== id);
+      this.saveToStorage(this.data);
+      return true;
+    }
+
+    updateServicesHeader(tagline, title, subtitle) {
+      if (!this.data.settings) this.data.settings = {};
+      if (tagline !== undefined) this.data.settings.servicesTagline = tagline;
+      if (title !== undefined) this.data.settings.servicesTitle = title;
+      if (subtitle !== undefined) this.data.settings.servicesSubtitle = subtitle;
+      this.saveToStorage(this.data);
+      return this.data.settings;
+    }
+
     /* ---------------- BACKUP, RESTORE & EXPORT ---------------- */
     exportJSON() {
       return JSON.stringify(this.data, null, 2);
@@ -355,6 +459,9 @@
         }
         if (!Array.isArray(parsed.projects) || !Array.isArray(parsed.clients) || !Array.isArray(parsed.leads)) {
           throw new Error('Missing core schemas in imported backup');
+        }
+        if (!Array.isArray(parsed.services)) {
+          parsed.services = DEFAULT_DATA.services;
         }
         this.data = parsed;
         this.saveToStorage(this.data);

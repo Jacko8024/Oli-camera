@@ -20,12 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
    ========================================================================== */
 function initDynamicCMS() {
   renderDynamicPortfolio();
+  renderDynamicServices();
   renderDynamicTestimonials();
   syncStudioStatus();
 
   // Re-render when data updates in DGStore (e.g. from admin panel or storage event)
   window.addEventListener('dg:store:changed', () => {
     renderDynamicPortfolio();
+    renderDynamicServices();
     renderDynamicTestimonials();
     syncStudioStatus();
   });
@@ -35,6 +37,7 @@ function initDynamicCMS() {
       if (window.DGStore) {
         window.DGStore.data = window.DGStore.load();
         renderDynamicPortfolio();
+        renderDynamicServices();
         renderDynamicTestimonials();
         syncStudioStatus();
       }
@@ -145,6 +148,162 @@ function renderDynamicTestimonials() {
       </div>
     `;
   }).join('');
+}
+
+function renderDynamicServices() {
+  const grid = document.getElementById('servicesGrid');
+  if (!grid || !window.DGStore) return;
+
+  const settings = window.DGStore.getSettings();
+  const services = window.DGStore.getServices();
+
+  // Update Section Header (Tagline, Title, Description)
+  const taglineEl = document.getElementById('servicesTagline');
+  const titleEl = document.getElementById('servicesTitle');
+  const descEl = document.getElementById('servicesDesc');
+
+  if (taglineEl && settings.servicesTagline) {
+    taglineEl.textContent = settings.servicesTagline;
+  }
+  if (titleEl && settings.servicesTitle) {
+    // Style last word with gold gradient
+    const parts = settings.servicesTitle.trim().split(' ');
+    if (parts.length > 1) {
+      const lastWord = parts.pop();
+      titleEl.innerHTML = `${escapeHtml(parts.join(' '))} <span class="gold-gradient-text">${escapeHtml(lastWord)}</span>`;
+    } else {
+      titleEl.innerHTML = `<span class="gold-gradient-text">${escapeHtml(settings.servicesTitle)}</span>`;
+    }
+  }
+  if (descEl && settings.servicesSubtitle) {
+    descEl.textContent = settings.servicesSubtitle;
+  }
+
+  // Filter active services for live website
+  const activeServices = services.filter((s) => s.active !== false);
+  if (activeServices.length === 0) return;
+
+  grid.innerHTML = activeServices.map((s) => {
+    const iconSvg = getServiceIconSvg(s.icon || 'camera');
+    
+    const featuresHtml = Array.isArray(s.features) && s.features.length > 0
+      ? `
+        <ul class="service-features-list">
+          ${s.features.map((f) => `
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              ${escapeHtml(f)}
+            </li>
+          `).join('')}
+        </ul>
+      `
+      : '';
+
+    const gearHtml = Array.isArray(s.gear) && s.gear.length > 0
+      ? `
+        <div class="service-gear-tags">
+          ${s.gear.map((g) => `<span class="gear-pill">${escapeHtml(g)}</span>`).join('')}
+        </div>
+      `
+      : '';
+
+    return `
+      <div class="service-card">
+        <div class="service-number">${escapeHtml(s.number || '00 // DISCIPLINE')}</div>
+        <div class="service-icon-wrap">
+          ${iconSvg}
+        </div>
+        <h3 class="service-title">${escapeHtml(s.title || 'Service Title')}</h3>
+        <p class="service-desc">
+          ${escapeHtml(s.description || '')}
+        </p>
+        ${featuresHtml}
+        ${gearHtml}
+      </div>
+    `;
+  }).join('');
+
+  // Sync booking inquiry form checkboxes
+  const chipsWrapper = document.getElementById('formServiceChipsWrapper');
+  if (chipsWrapper && activeServices.length > 0) {
+    // Preserve any currently checked states
+    const checkedValues = new Set();
+    chipsWrapper.querySelectorAll('input[name="services"]:checked').forEach((cb) => {
+      checkedValues.add(cb.value);
+    });
+
+    chipsWrapper.innerHTML = activeServices.map((s, idx) => {
+      const isChecked = checkedValues.size > 0 ? checkedValues.has(s.title) : idx < 3;
+      return `
+        <label class="chip-label">
+          <input type="checkbox" name="services" value="${escapeHtml(s.title)}" ${isChecked ? 'checked' : ''}>
+          <span class="chip-pill">${escapeHtml(s.title)}</span>
+        </label>
+      `;
+    }).join('');
+  }
+}
+
+function getServiceIconSvg(iconType) {
+  switch (iconType) {
+    case 'film':
+      return `<svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="6" cy="6" r="3"></circle>
+        <circle cx="6" cy="18" r="3"></circle>
+        <line x1="20" y1="4" x2="8.12" y2="15.88"></line>
+        <line x1="14.47" y1="14.48" x2="20" y2="20"></line>
+        <line x1="8.12" y1="8.12" x2="12" y2="12"></line>
+      </svg>`;
+    case 'sliders':
+      return `<svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="4" y1="21" x2="4" y2="14"></line>
+        <line x1="4" y1="10" x2="4" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="12"></line>
+        <line x1="12" y1="8" x2="12" y2="3"></line>
+        <line x1="20" y1="21" x2="20" y2="16"></line>
+        <line x1="20" y1="12" x2="20" y2="3"></line>
+        <line x1="1" y1="14" x2="7" y2="14"></line>
+        <line x1="9" y1="8" x2="15" y2="8"></line>
+        <line x1="17" y1="16" x2="23" y2="16"></line>
+      </svg>`;
+    case 'drone':
+      return `<svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M4 8l5 2"></path>
+        <path d="M15 14l5 2"></path>
+        <path d="M8 4l2 5"></path>
+        <path d="M14 15l2 5"></path>
+        <circle cx="4" cy="8" r="2"></circle>
+        <circle cx="20" cy="16" r="2"></circle>
+        <circle cx="8" cy="4" r="2"></circle>
+        <circle cx="16" cy="20" r="2"></circle>
+      </svg>`;
+    case 'lighting':
+      return `<svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18h6"></path>
+        <path d="M10 22h4"></path>
+        <path d="M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 6h8c1.5-1.5 3-3.5 3-6a7 7 0 0 0-7-7z"></path>
+      </svg>`;
+    case 'mic':
+      return `<svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+        <line x1="12" y1="19" x2="12" y2="23"></line>
+        <line x1="8" y1="23" x2="16" y2="23"></line>
+      </svg>`;
+    case 'sparkles':
+      return `<svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3l1.912 4.678a2 2 0 0 0 1.41 1.41L20 11l-4.678 1.912a2 2 0 0 0-1.41 1.41L12 19l-1.912-4.678a2 2 0 0 0-1.41-1.41L4 11l4.678-1.912a2 2 0 0 0 1.41-1.41L12 3z"></path>
+        <path d="M5 3v4"></path>
+        <path d="M3 5h4"></path>
+      </svg>`;
+    case 'camera':
+    default:
+      return `<svg viewBox="0 0 24 24" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+        <circle cx="12" cy="13" r="4"></circle>
+      </svg>`;
+  }
 }
 
 function escapeHtml(str) {

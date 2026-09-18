@@ -11,6 +11,7 @@ Welcome to the official repository for **DG PRODUCTION**, a world-class cinemato
 - **Full Studio Admin Panel (`/admin.html` or `/admin`)**:
   - **Login Auth**: Secure access key gate with session persistence and password management.
   - **Projects Management**: Add, edit, delete, and preview portfolio films with YouTube ID extraction, 9:16 Shorts / 16:9 Cinema aspect ratios, and custom thumbnails.
+  - **Our Services & Capabilities Management**: Full CRUD to add, edit, reorder, and remove studio services and camera disciplines (Cinematography, Video Editing, Color Grading, Aerial Cinema, etc.), customize icon symbols, feature checklists, gear tags, and edit the public section headline/tagline.
   - **Clients & Endorsements**: Add and curate verified client reviews, star ratings, and company roles.
   - **Leads & Inquiries Pipeline**: Tracks incoming project inquiries from the contact form, status updates (`New`, `In Discussion`, `Booked`, `Archived`), direct WhatsApp/Email reply links, and CSV export.
   - **Data Backup & Restore**: One-click JSON backup export, file restoration, and factory reset.

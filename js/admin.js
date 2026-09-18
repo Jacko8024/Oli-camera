@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAdminAuth();
   initAdminNavigation();
   initProjectsManager();
+  initServicesManager();
   initClientsManager();
   initLeadsManager();
   initSettingsManager();
@@ -140,6 +141,7 @@ function initAdminNavigation() {
   const titles = {
     tabOverview: 'Dashboard Overview',
     tabProjects: 'Projects Showcase Manager',
+    tabServices: 'Our Services & Capabilities',
     tabClients: 'Clients & Endorsements',
     tabLeads: 'Leads & Inquiries Pipeline',
     tabSettings: 'Studio Settings & Backup'
@@ -947,12 +949,327 @@ function initSettingsManager() {
 }
 
 /* ==========================================================================
+   SERVICES MANAGEMENT (CRUD & SECTION HEADER)
+   ========================================================================== */
+function initServicesManager() {
+  const serviceModal = document.getElementById('serviceModal');
+  const openServiceBtn = document.getElementById('btnOpenNewServiceModal');
+  const closeServiceBtn = document.getElementById('closeServiceModalBtn');
+  const cancelServiceBtn = document.getElementById('cancelServiceModalBtn');
+  const serviceForm = document.getElementById('serviceForm');
+
+  const headerModal = document.getElementById('servicesHeaderModal');
+  const openHeaderBtn = document.getElementById('btnEditServicesHeader');
+  const quickEditHeaderBtn = document.getElementById('btnQuickEditHeader');
+  const closeHeaderBtn = document.getElementById('closeServicesHeaderModalBtn');
+  const cancelHeaderBtn = document.getElementById('cancelServicesHeaderModalBtn');
+  const headerForm = document.getElementById('servicesHeaderForm');
+
+  // Service Modal open/close
+  if (openServiceBtn) openServiceBtn.addEventListener('click', () => openServiceModal());
+  if (closeServiceBtn) closeServiceBtn.addEventListener('click', closeServiceModal);
+  if (cancelServiceBtn) cancelServiceBtn.addEventListener('click', closeServiceModal);
+
+  // Header Modal open/close
+  if (openHeaderBtn) openHeaderBtn.addEventListener('click', () => openServicesHeaderModal());
+  if (quickEditHeaderBtn) quickEditHeaderBtn.addEventListener('click', () => openServicesHeaderModal());
+  if (closeHeaderBtn) closeHeaderBtn.addEventListener('click', closeServicesHeaderModal);
+  if (cancelHeaderBtn) cancelHeaderBtn.addEventListener('click', closeServicesHeaderModal);
+
+  // Save Service
+  if (serviceForm) {
+    serviceForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('serviceId').value;
+      const title = document.getElementById('serviceTitle').value.trim();
+      const number = document.getElementById('serviceNumber').value.trim();
+      const icon = document.getElementById('serviceIcon').value;
+      const order = parseInt(document.getElementById('serviceOrder').value, 10) || 1;
+      const desc = document.getElementById('serviceDesc').value.trim();
+      const rawFeatures = document.getElementById('serviceFeatures').value.trim();
+      const rawGear = document.getElementById('serviceGear').value.trim();
+      const active = document.getElementById('serviceActive').checked;
+
+      const features = rawFeatures
+        ? rawFeatures.split('\n').map((f) => f.trim()).filter(Boolean)
+        : [];
+
+      const gear = rawGear
+        ? rawGear.split(',').map((g) => g.trim()).filter(Boolean)
+        : [];
+
+      const serviceData = {
+        title,
+        number,
+        icon,
+        order,
+        description: desc,
+        features,
+        gear,
+        active
+      };
+
+      if (id) serviceData.id = id;
+
+      window.DGStore.saveService(serviceData);
+      closeServiceModal();
+      renderServicesList();
+      refreshAllViews();
+      showToast(id ? 'Service updated successfully!' : 'New service published to live website!');
+    });
+  }
+
+  // Save Services Section Header
+  if (headerForm) {
+    headerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const tagline = document.getElementById('headerTaglineInput').value.trim();
+      const title = document.getElementById('headerTitleInput').value.trim();
+      const subtitle = document.getElementById('headerSubtitleInput').value.trim();
+
+      window.DGStore.updateServicesHeader(tagline, title, subtitle);
+      closeServicesHeaderModal();
+      renderServicesHeaderPreview();
+      showToast('Services section header updated!', 'success');
+    });
+  }
+}
+
+function openServiceModal(serviceId = null) {
+  const modal = document.getElementById('serviceModal');
+  const titleEl = document.getElementById('serviceModalTitle');
+  const form = document.getElementById('serviceForm');
+  if (!modal || !form) return;
+
+  form.reset();
+  document.getElementById('serviceId').value = '';
+  document.getElementById('serviceActive').checked = true;
+
+  if (serviceId && window.DGStore) {
+    const service = window.DGStore.getServiceById(serviceId);
+    if (service) {
+      titleEl.textContent = 'Edit Service Offering';
+      document.getElementById('serviceId').value = service.id;
+      document.getElementById('serviceTitle').value = service.title || '';
+      document.getElementById('serviceNumber').value = service.number || '';
+      document.getElementById('serviceIcon').value = service.icon || 'camera';
+      document.getElementById('serviceOrder').value = service.order || 1;
+      document.getElementById('serviceDesc').value = service.description || '';
+      document.getElementById('serviceFeatures').value = Array.isArray(service.features) ? service.features.join('\n') : '';
+      document.getElementById('serviceGear').value = Array.isArray(service.gear) ? service.gear.join(', ') : '';
+      document.getElementById('serviceActive').checked = service.active !== false;
+    }
+  } else {
+    titleEl.textContent = 'Add New Service';
+    const allServices = window.DGStore ? window.DGStore.getServices() : [];
+    document.getElementById('serviceOrder').value = allServices.length + 1;
+    document.getElementById('serviceNumber').value = `0${allServices.length + 1} // DISCIPLINE`;
+  }
+
+  modal.classList.add('open');
+}
+
+function closeServiceModal() {
+  const modal = document.getElementById('serviceModal');
+  if (modal) modal.classList.remove('open');
+}
+
+function openServicesHeaderModal() {
+  const modal = document.getElementById('servicesHeaderModal');
+  if (!modal || !window.DGStore) return;
+
+  const settings = window.DGStore.getSettings();
+  document.getElementById('headerTaglineInput').value = settings.servicesTagline || 'Studio Capabilities';
+  document.getElementById('headerTitleInput').value = settings.servicesTitle || 'Specialized Craftsmanship';
+  document.getElementById('headerSubtitleInput').value = settings.servicesSubtitle || 'End-to-end cinematic production tailored for visionary artists, premier commercial brands, and unforgettable events.';
+
+  modal.classList.add('open');
+}
+
+function closeServicesHeaderModal() {
+  const modal = document.getElementById('servicesHeaderModal');
+  if (modal) modal.classList.remove('open');
+}
+
+function renderServicesHeaderPreview() {
+  if (!window.DGStore) return;
+  const settings = window.DGStore.getSettings();
+
+  const taglineEl = document.getElementById('adminHeaderTagline');
+  const titleEl = document.getElementById('adminHeaderTitle');
+  const descEl = document.getElementById('adminHeaderDesc');
+
+  if (taglineEl) taglineEl.textContent = settings.servicesTagline || 'Studio Capabilities';
+  if (titleEl) titleEl.textContent = settings.servicesTitle || 'Specialized Craftsmanship';
+  if (descEl) descEl.textContent = settings.servicesSubtitle || 'End-to-end cinematic production tailored for visionary artists, premier commercial brands, and unforgettable events.';
+}
+
+function getServiceIconSvg(iconType) {
+  switch (iconType) {
+    case 'film':
+      return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="6" cy="6" r="3"></circle>
+        <circle cx="6" cy="18" r="3"></circle>
+        <line x1="20" y1="4" x2="8.12" y2="15.88"></line>
+        <line x1="14.47" y1="14.48" x2="20" y2="20"></line>
+        <line x1="8.12" y1="8.12" x2="12" y2="12"></line>
+      </svg>`;
+    case 'sliders':
+      return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="4" y1="21" x2="4" y2="14"></line>
+        <line x1="4" y1="10" x2="4" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="12"></line>
+        <line x1="12" y1="8" x2="12" y2="3"></line>
+        <line x1="20" y1="21" x2="20" y2="16"></line>
+        <line x1="20" y1="12" x2="20" y2="3"></line>
+        <line x1="1" y1="14" x2="7" y2="14"></line>
+        <line x1="9" y1="8" x2="15" y2="8"></line>
+        <line x1="17" y1="16" x2="23" y2="16"></line>
+      </svg>`;
+    case 'drone':
+      return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M4 8l5 2"></path>
+        <path d="M15 14l5 2"></path>
+        <path d="M8 4l2 5"></path>
+        <path d="M14 15l2 5"></path>
+        <circle cx="4" cy="8" r="2"></circle>
+        <circle cx="20" cy="16" r="2"></circle>
+        <circle cx="8" cy="4" r="2"></circle>
+        <circle cx="16" cy="20" r="2"></circle>
+      </svg>`;
+    case 'lighting':
+      return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18h6"></path>
+        <path d="M10 22h4"></path>
+        <path d="M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 6h8c1.5-1.5 3-3.5 3-6a7 7 0 0 0-7-7z"></path>
+      </svg>`;
+    case 'mic':
+      return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+        <line x1="12" y1="19" x2="12" y2="23"></line>
+        <line x1="8" y1="23" x2="16" y2="23"></line>
+      </svg>`;
+    case 'sparkles':
+      return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3l1.912 4.678a2 2 0 0 0 1.41 1.41L20 11l-4.678 1.912a2 2 0 0 0-1.41 1.41L12 19l-1.912-4.678a2 2 0 0 0-1.41-1.41L4 11l4.678-1.912a2 2 0 0 0 1.41-1.41L12 3z"></path>
+        <path d="M5 3v4"></path>
+        <path d="M3 5h4"></path>
+      </svg>`;
+    case 'camera':
+    default:
+      return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+        <circle cx="12" cy="13" r="4"></circle>
+      </svg>`;
+  }
+}
+
+function renderServicesList() {
+  const container = document.getElementById('adminServicesGrid');
+  if (!container || !window.DGStore) return;
+
+  const services = window.DGStore.getServices();
+
+  if (services.length === 0) {
+    container.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align: center; padding: 3.5rem; background: var(--bg-surface); border-radius: var(--radius-md); border: 1px dashed var(--border-subtle); color: var(--text-muted);">
+        <p style="margin-bottom: 1rem; font-size: 1rem;">No services configured yet.</p>
+        <button class="btn btn-gold btn-sm" onclick="openServiceModal()">+ Add First Service</button>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = services.map((s) => {
+    const isActive = s.active !== false;
+    const iconSvg = getServiceIconSvg(s.icon || 'camera');
+
+    const featuresHtml = Array.isArray(s.features) && s.features.length > 0
+      ? `
+        <div class="service-card-features-preview">
+          <h5>Key Deliverables (${s.features.length})</h5>
+          <ul>
+            ${s.features.slice(0, 3).map((f) => `
+              <li>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>${escapeHtml(f)}</span>
+              </li>
+            `).join('')}
+            ${s.features.length > 3 ? `<li style="color: var(--text-muted); font-size: 0.75rem;">+ ${s.features.length - 3} more deliverable(s)...</li>` : ''}
+          </ul>
+        </div>
+      `
+      : '';
+
+    const gearHtml = Array.isArray(s.gear) && s.gear.length > 0
+      ? `
+        <div class="service-card-gear-tags">
+          ${s.gear.map((g) => `<span class="service-gear-pill">${escapeHtml(g)}</span>`).join('')}
+        </div>
+      `
+      : '';
+
+    return `
+      <div class="admin-service-card ${isActive ? '' : 'service-inactive'}" data-id="${s.id}">
+        <div>
+          <div class="service-card-top">
+            <div class="service-icon-badge">
+              ${iconSvg}
+            </div>
+            <span class="service-status-pill ${isActive ? 'active' : 'draft'}">
+              ${isActive ? '● Live on Site' : '○ Draft / Hidden'}
+            </span>
+          </div>
+
+          <div class="service-card-number">${escapeHtml(s.number || '00 // DISCIPLINE')}</div>
+          <h3 class="service-card-name">${escapeHtml(s.title || 'Untitled Service')}</h3>
+          <p class="service-card-summary">${escapeHtml(s.description || '')}</p>
+
+          ${featuresHtml}
+          ${gearHtml}
+        </div>
+
+        <div class="service-card-footer">
+          <button class="btn btn-outline btn-sm" onclick="openServiceModal('${s.id}')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            Edit
+          </button>
+          <button class="btn btn-danger btn-sm" onclick="handleDeleteService('${s.id}')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            Delete
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function handleDeleteService(id) {
+  if (!id || !window.DGStore) return;
+  const service = window.DGStore.getServiceById(id);
+  const name = service ? `"${service.title}"` : 'this service';
+  if (confirm(`Are you sure you want to delete ${name}? It will be removed from the live website.`)) {
+    window.DGStore.deleteService(id);
+    renderServicesList();
+    refreshAllViews();
+    showToast('Service removed from website.', 'info');
+  }
+}
+
+window.openServiceModal = openServiceModal;
+window.handleDeleteService = handleDeleteService;
+window.openServicesHeaderModal = openServicesHeaderModal;
+
+/* ==========================================================================
    8. REFRESH & METRICS SYNC
    ========================================================================== */
 function refreshAllViews() {
   if (!window.DGStore) return;
 
   const projects = window.DGStore.getProjects();
+  const services = window.DGStore.getServices();
   const clients = window.DGStore.getClients();
   const leads = window.DGStore.getLeads();
   const settings = window.DGStore.getSettings();
@@ -966,6 +1283,9 @@ function refreshAllViews() {
   // Update Badges
   const badgeProjects = document.getElementById('badgeProjectsCount');
   if (badgeProjects) badgeProjects.textContent = projects.length;
+
+  const badgeServices = document.getElementById('badgeServicesCount');
+  if (badgeServices) badgeServices.textContent = services.length;
 
   const badgeClients = document.getElementById('badgeClientsCount');
   if (badgeClients) badgeClients.textContent = clients.length;
@@ -981,6 +1301,9 @@ function refreshAllViews() {
   const statProj = document.getElementById('statProjectsCount');
   if (statProj) statProj.textContent = projects.length;
 
+  const statServices = document.getElementById('statServicesCount');
+  if (statServices) statServices.textContent = services.length;
+
   const statClient = document.getElementById('statClientsCount');
   if (statClient) statClient.textContent = clients.length;
 
@@ -992,6 +1315,8 @@ function refreshAllViews() {
 
   // Render Sub-Views
   renderProjectsList();
+  renderServicesList();
+  renderServicesHeaderPreview();
   renderClientsList();
   renderLeadsTables();
 }

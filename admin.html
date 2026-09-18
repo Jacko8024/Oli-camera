@@ -101,6 +101,11 @@
           <span>Projects</span>
           <span class="nav-badge" id="badgeProjectsCount">4</span>
         </button>
+        <button class="nav-item" data-tab="tabServices">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+          <span>Our Services</span>
+          <span class="nav-badge" id="badgeServicesCount">3</span>
+        </button>
         <button class="nav-item" data-tab="tabClients">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
           <span>Clients & Reviews</span>
@@ -223,6 +228,17 @@
               <div class="stat-value text-amber" id="statNewLeadsCount">0</div>
               <div class="stat-desc">Awaiting your response</div>
             </div>
+
+            <div class="stat-card">
+              <div class="stat-header">
+                <span class="stat-title">Our Services</span>
+                <div class="stat-icon-wrap purple">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                </div>
+              </div>
+              <div class="stat-value text-gold" id="statServicesCount">3</div>
+              <div class="stat-desc">Active cinema disciplines</div>
+            </div>
           </div>
 
           <!-- Recent Inquiries Section -->
@@ -289,6 +305,46 @@
           <!-- Projects Grid Display -->
           <div class="admin-projects-grid" id="adminProjectsGrid">
             <!-- Rendered by admin.js -->
+          </div>
+        </section>
+
+        <!-- ==================================================================
+             TAB: SERVICES MANAGEMENT
+             ================================================================== -->
+        <section class="admin-tab-pane" id="tabServices">
+          <div class="page-intro-header">
+            <div>
+              <h2 class="section-heading">Our Services & Capabilities</h2>
+              <p class="section-subheading">Manage studio production disciplines, camera packages, features, and gear tags displayed on the live website.</p>
+            </div>
+            <div class="page-intro-actions">
+              <button class="btn btn-outline" id="btnEditServicesHeader">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Edit Section Title
+              </button>
+              <button class="btn btn-gold" id="btnOpenNewServiceModal">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Add New Service
+              </button>
+            </div>
+          </div>
+
+          <!-- Services Section Header Preview Card -->
+          <div class="services-header-preview-card">
+            <div class="preview-header-meta">
+              <span class="preview-pill">PUBLIC SECTION HEADER PREVIEW</span>
+              <button class="btn btn-outline btn-xs" id="btnQuickEditHeader">Customize Headline & Subtitle</button>
+            </div>
+            <div class="preview-header-content">
+              <span class="preview-tagline" id="adminHeaderTagline">Studio Capabilities</span>
+              <h3 class="preview-title" id="adminHeaderTitle">Specialized Craftsmanship</h3>
+              <p class="preview-desc" id="adminHeaderDesc">End-to-end cinematic production tailored for visionary artists, premier commercial brands, and unforgettable events.</p>
+            </div>
+          </div>
+
+          <!-- Services Cards Grid -->
+          <div class="admin-services-grid" id="adminServicesGrid">
+            <!-- Rendered dynamically by admin.js -->
           </div>
         </section>
 
@@ -624,6 +680,114 @@
           <button type="button" class="btn btn-outline" id="closeLeadDetailBtn">Close</button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: ADD / EDIT SERVICE
+       ========================================================================== -->
+  <div class="admin-modal-backdrop" id="serviceModal" role="dialog" aria-modal="true" aria-labelledby="serviceModalTitle">
+    <div class="admin-modal-card">
+      <div class="modal-card-header">
+        <h3 class="modal-title" id="serviceModalTitle">Add New Service</h3>
+        <button class="modal-close-btn" id="closeServiceModalBtn" aria-label="Close modal">×</button>
+      </div>
+      <form id="serviceForm" class="modal-form">
+        <input type="hidden" id="serviceId">
+
+        <div class="form-grid-2">
+          <div class="form-field">
+            <label for="serviceTitle">Service Title *</label>
+            <input type="text" id="serviceTitle" class="admin-input" placeholder="e.g. Cinematography" required>
+          </div>
+          <div class="form-field">
+            <label for="serviceNumber">Number / Category Tag *</label>
+            <input type="text" id="serviceNumber" class="admin-input" placeholder="e.g. 01 // PRODUCTION" required>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-field">
+            <label for="serviceIcon">Icon Symbol *</label>
+            <select id="serviceIcon" class="admin-input" required>
+              <option value="camera">🎥 Camera / Cinema Systems</option>
+              <option value="film">✂️ Film Reel / Post-Production</option>
+              <option value="sliders">🎨 Sliders / Color Science</option>
+              <option value="drone">🛸 Drone / Aerial Cinema</option>
+              <option value="lighting">💡 Lighting / Studio Staging</option>
+              <option value="mic">🎙️ Audio / Sound & Foley</option>
+              <option value="sparkles">✨ VFX / Creative FX</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="serviceOrder">Display Order</label>
+            <input type="number" id="serviceOrder" class="admin-input" min="1" max="99" value="1">
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="serviceDesc">Service Description *</label>
+          <textarea id="serviceDesc" class="admin-input" rows="3" placeholder="Brief detailed overview of what makes this service world-class..." required></textarea>
+        </div>
+
+        <div class="form-field">
+          <label for="serviceFeatures">Key Features & Deliverables (One per line) *</label>
+          <textarea id="serviceFeatures" class="admin-input" rows="4" placeholder="ARRI Alexa & RED Digital Cinema packages&#10;Anamorphic & Vintage spherical optics&#10;Steadicam, Gimbal & Drone aerial operations" required></textarea>
+          <span class="field-hint">Each line will become a bullet point with a gold cinema checkmark.</span>
+        </div>
+
+        <div class="form-field">
+          <label for="serviceGear">Gear, Optics & Software Tags (Comma-separated)</label>
+          <input type="text" id="serviceGear" class="admin-input" placeholder="e.g. ARRI Mini LF, RED V-Raptor, Cooke / Atlas">
+          <span class="field-hint">Separate equipment or tools with commas to display as pill badges.</span>
+        </div>
+
+        <div class="form-field checkbox-field" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: var(--text-white); font-size: 0.9rem;">
+            <input type="checkbox" id="serviceActive" checked style="accent-color: var(--gold-pure); width: 16px; height: 16px;">
+            <span>Publish on live website (active service)</span>
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" id="cancelServiceModalBtn">Cancel</button>
+          <button type="submit" class="btn btn-gold">Save Service</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: EDIT SERVICES SECTION HEADER
+       ========================================================================== -->
+  <div class="admin-modal-backdrop" id="servicesHeaderModal" role="dialog" aria-modal="true" aria-labelledby="servicesHeaderModalTitle">
+    <div class="admin-modal-card">
+      <div class="modal-card-header">
+        <h3 class="modal-title" id="servicesHeaderModalTitle">Edit Services Section Header</h3>
+        <button class="modal-close-btn" id="closeServicesHeaderModalBtn" aria-label="Close modal">×</button>
+      </div>
+      <form id="servicesHeaderForm" class="modal-form">
+        <div class="form-field">
+          <label for="headerTaglineInput">Section Tagline</label>
+          <input type="text" id="headerTaglineInput" class="admin-input" placeholder="e.g. Studio Capabilities" required>
+        </div>
+
+        <div class="form-field">
+          <label for="headerTitleInput">Main Heading</label>
+          <input type="text" id="headerTitleInput" class="admin-input" placeholder="e.g. Specialized Craftsmanship" required>
+          <span class="field-hint">The website will automatically style the last word with the gold accent.</span>
+        </div>
+
+        <div class="form-field">
+          <label for="headerSubtitleInput">Section Description</label>
+          <textarea id="headerSubtitleInput" class="admin-input" rows="3" placeholder="End-to-end cinematic production tailored for visionary artists..." required></textarea>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" id="cancelServicesHeaderModalBtn">Cancel</button>
+          <button type="submit" class="btn btn-gold">Save Header</button>
+        </div>
+      </form>
     </div>
   </div>
 
